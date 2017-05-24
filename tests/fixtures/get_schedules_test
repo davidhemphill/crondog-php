@@ -1,0 +1,57 @@
+
+-
+    request:
+        method: POST
+        url: 'http://crondog.dev/api/schedules'
+        headers:
+            Host: crondog.dev
+            Expect: null
+            Accept-Encoding: null
+            User-Agent: 'GuzzleHttp/6.2.1 curl/7.51.0 PHP/7.1.4'
+            Accept: application/json
+            Content-Type: application/json
+        body: '{"team_id":1,"url":"http:\/\/davidhemphill.dev","method":"get","type":"monthly","monthly":{"day":14},"alert":true,"timezone":"America\/Chicago","api_token":"NVopGB1H44mrUzJvsADYZxew98DUPt90P5yVJSXXYAXALPHtuYqTBWrDsj8A"}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Server: nginx/1.10.3
+            Content-Type: application/json
+            Transfer-Encoding: chunked
+            Connection: keep-alive
+            Vary: Accept-Encoding
+            X-Powered-By: PHP/7.1.4
+            Cache-Control: 'no-cache, private'
+            X-RateLimit-Limit: '60'
+            X-RateLimit-Remaining: '58'
+            Date: 'Wed, 24 May 2017 20:13:29 GMT'
+        body: '{"team_id":1,"user_id":1,"type":"monthly","method":"get","uuid":"369bbc81-f8a1-45c7-8f5e-56dde1efca1c","url":"http:\/\/davidhemphill.dev","starts_at":"2017-05-24 20:13:29","ends_at":null,"config":"0 0 14 * *","payload":"[]","alert":true,"timezone":"America\/Chicago","updated_at":"2017-05-24 20:13:29","created_at":"2017-05-24 20:13:29","id":44}'
+-
+    request:
+        method: GET
+        url: 'http://crondog.dev/api/schedules?team_id=1&api_token=NVopGB1H44mrUzJvsADYZxew98DUPt90P5yVJSXXYAXALPHtuYqTBWrDsj8A'
+        headers:
+            Host: crondog.dev
+            Accept-Encoding: null
+            User-Agent: 'GuzzleHttp/6.2.1 curl/7.51.0 PHP/7.1.4'
+            Accept: application/json
+            Content-Type: application/json
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Server: nginx/1.10.3
+            Content-Type: application/json
+            Transfer-Encoding: chunked
+            Connection: keep-alive
+            Vary: Accept-Encoding
+            X-Powered-By: PHP/7.1.4
+            Cache-Control: 'no-cache, private'
+            X-RateLimit-Limit: '60'
+            X-RateLimit-Remaining: '59'
+            Date: 'Wed, 24 May 2017 20:13:29 GMT'
+        body: '[{"id":43,"uuid":"77463862-8e7b-461c-8d26-1b825498768e","team_id":1,"user_id":1,"url":"http:\/\/davidhemphill.dev","type":"monthly","method":"GET","timezone":"UTC","payload":[],"results":[],"next_run_date":"Jun 14, 2017 @ 12:00 AM","end_date":"-","show_link":"http:\/\/crondog.dev\/schedules\/43","last_status":null,"success_rate":0,"error_rate":0},{"id":44,"uuid":"369bbc81-f8a1-45c7-8f5e-56dde1efca1c","team_id":1,"user_id":1,"url":"http:\/\/davidhemphill.dev","type":"monthly","method":"GET","timezone":"UTC","payload":[],"results":[],"next_run_date":"Jun 14, 2017 @ 12:00 AM","end_date":"-","show_link":"http:\/\/crondog.dev\/schedules\/44","last_status":null,"success_rate":0,"error_rate":0},{"id":3,"uuid":"4ebbfa9f-28a7-4215-88dc-f093d30ffc2d","team_id":1,"user_id":1,"url":"http:\/\/pushsilver.dev\/incoming\/invoices","type":"monthly","method":"POST","timezone":"UTC","payload":{"invoice_id":13},"results":[],"next_run_date":"Jun 14, 2017 @ 12:00 AM","end_date":"-","show_link":"http:\/\/crondog.dev\/schedules\/3","last_status":null,"success_rate":0,"error_rate":0}]'

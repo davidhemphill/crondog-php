@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class Schedule extends ApiResource
 {
-    static $endpoint = 'schedules';
+    static $endpoint = '/schedules/';
 
     var $attributes;
 
@@ -26,7 +26,7 @@ class Schedule extends ApiResource
         $id = $attributes['id'];
 
         $response = static::createRequest()
-            ->get(static::getUrl("/{$id}"), static::mergeWithCredentials($attributes));
+            ->get(static::getUrl($id), static::mergeWithCredentials($attributes));
 
         return static::createFromResponse($response);
     }
@@ -44,7 +44,7 @@ class Schedule extends ApiResource
         $id = $attributes['id'];
 
         $response = static::createRequest()
-            ->delete(static::getUrl("/{$id}"), static::mergeWithCredentials($attributes));
+            ->delete(static::getUrl($id), static::mergeWithCredentials($attributes));
 
         return static::createFromResponse($response);
     }

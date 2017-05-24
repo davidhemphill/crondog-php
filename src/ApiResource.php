@@ -8,9 +8,9 @@ abstract class ApiResource
 
     var $response;
 
-    static $devBaseUri = 'http://crondog.dev/api/';
+    static $devBaseUri = 'http://crondog.dev/api';
 
-    static $prodBaseUri = 'https://crondog.io/api/';
+    static $prodBaseUri = 'https://crondog.io/api';
 
     static function getUrl($extra = null)
     {

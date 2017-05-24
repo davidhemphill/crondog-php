@@ -25,13 +25,13 @@
             X-Powered-By: PHP/7.1.4
             Cache-Control: 'no-cache, private'
             X-RateLimit-Limit: '60'
-            X-RateLimit-Remaining: '57'
-            Date: 'Wed, 24 May 2017 20:13:29 GMT'
-        body: '{"team_id":1,"user_id":1,"type":"monthly","method":"get","uuid":"891a6e3f-e216-44c4-b9ac-fb7c07fffdf0","url":"http:\/\/davidhemphill.dev","starts_at":"2017-05-24 20:13:29","ends_at":null,"config":"0 0 14 * *","payload":"[]","alert":true,"timezone":"America\/Chicago","updated_at":"2017-05-24 20:13:29","created_at":"2017-05-24 20:13:29","id":45}'
+            X-RateLimit-Remaining: '58'
+            Date: 'Wed, 24 May 2017 20:53:53 GMT'
+        body: '{"team_id":1,"user_id":1,"type":"monthly","method":"get","uuid":"733b861c-6ad5-4126-aadf-47535f8c002f","url":"http:\/\/davidhemphill.dev","starts_at":"2017-05-24 20:53:53","ends_at":null,"config":"0 0 14 * *","payload":"[]","alert":true,"timezone":"America\/Chicago","updated_at":"2017-05-24 20:53:53","created_at":"2017-05-24 20:53:53","id":52}'
 -
     request:
         method: GET
-        url: 'http://crondog.dev/api/schedules/45?id=45&team_id=1&api_token=NVopGB1H44mrUzJvsADYZxew98DUPt90P5yVJSXXYAXALPHtuYqTBWrDsj8A'
+        url: 'http://crondog.dev/api/schedules/52?id=52&team_id=1&api_token=NVopGB1H44mrUzJvsADYZxew98DUPt90P5yVJSXXYAXALPHtuYqTBWrDsj8A'
         headers:
             Host: crondog.dev
             Accept-Encoding: null
@@ -53,5 +53,5 @@
             Cache-Control: 'no-cache, private'
             X-RateLimit-Limit: '60'
             X-RateLimit-Remaining: '59'
-            Date: 'Wed, 24 May 2017 20:13:29 GMT'
-        body: '{"id":45,"uuid":"891a6e3f-e216-44c4-b9ac-fb7c07fffdf0","team_id":1,"user_id":1,"url":"http:\/\/davidhemphill.dev","type":"monthly","method":"GET","timezone":"UTC","payload":[],"results":[],"next_run_date":"Jun 14, 2017 @ 12:00 AM","end_date":"-","show_link":"http:\/\/crondog.dev\/schedules\/45","last_status":null,"success_rate":0,"error_rate":0}'
+            Date: 'Wed, 24 May 2017 20:53:53 GMT'
+        body: '{"id":52,"uuid":"733b861c-6ad5-4126-aadf-47535f8c002f","team_id":1,"user_id":1,"url":"http:\/\/davidhemphill.dev","type":"monthly","method":"GET","timezone":"UTC","payload":[],"results":[],"next_run_date":"Jun 14, 2017 @ 12:00 AM","end_date":"-","show_link":"http:\/\/crondog.dev\/schedules\/52","last_status":null,"success_rate":0,"error_rate":0}'

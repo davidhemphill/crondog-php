@@ -2,54 +2,33 @@
 
 namespace CronDog;
 
-use GuzzleHttp\Client;
+use Illuminate\Support\Collection;
 
-class Schedule
+class Schedule extends ApiResource
 {
-    static $devBaseUri = 'http://crondog.dev/api/';
-
-    static $prodBaseUri = 'https://crondog.io/api/';
-
     static $endpoint = 'schedules';
 
     var $attributes;
-
-    static function getUrl($extra = null)
-    {
-        if (getenv('CRONDOG_ENV') == 'dev') {
-            return static::$devBaseUri . static::$endpoint . $extra;
-        }
-
-        return static::$prodBaseUri . static::$endpoint . $extra;
-    }
-
-    static function createRequest()
-    {
-        return Zttp::accept('application/json')
-            ->asJson();
-    }
-
-    static function mergeWithCredentials($something = [], $with = [])
-    {
-        return array_merge($something, array_merge([
-            'api_token' => CronDog::getApiKey()
-        ], $with));
-    }
 
     static function get($attributes)
     {
         $response = static::createRequest()
             ->get(static::getUrl(), static::mergeWithCredentials($attributes));
 
-        return $response;
+        return (new Collection($response->json()))
+            ->map(function ($item) {
+                return static::createFromArray($item);
+            });
     }
 
     static function find($attributes)
     {
         $id = $attributes['id'];
 
-        return static::createRequest()
+        $response = static::createRequest()
             ->get(static::getUrl("/{$id}"), static::mergeWithCredentials($attributes));
+
+        return static::createFromResponse($response);
     }
 
     static function create($attributes)
@@ -57,7 +36,7 @@ class Schedule
         $response = static::createRequest()
             ->post(static::getUrl(), static::mergeWithCredentials($attributes));
 
-        return $response;
+        return static::createFromResponse($response);
     }
 
     static function delete($attributes)
@@ -67,6 +46,6 @@ class Schedule
         $response = static::createRequest()
             ->delete(static::getUrl("/{$id}"), static::mergeWithCredentials($attributes));
 
-        return $response;
+        return static::createFromResponse($response);
     }
 }

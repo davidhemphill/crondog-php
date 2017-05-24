@@ -27,70 +27,62 @@ class ScheduleTest extends PHPUnit_Framework_TestCase
         ]);
     }
 
-    /**
-     * @vcr create_schedule_test
-     */
-    function testCreateWorks()
+    private function cleanHouse()
     {
-        $response = Schedule::create([
-            'team_id' => 1,
-            'url' => 'http://davidhemphill.dev',
-            'method' => 'get',
-            'type' => 'monthly',
-            'monthly' => [
-                'day' => 14,
-            ],
-            'alert' => true,
-            'timezone' => 'America/Chicago'
-        ]);
-
-        $this->assertEquals(200, $response->status());
+        Schedule::get(['team_id' => 1])
+            ->each(function ($schedule) {
+                return Schedule::delete($schedule->toArray());
+            });
     }
 
-    /**
-     * @vcr get_schedules_test
-     */
+    function testCreateWorks()
+    {
+        $this->cleanHouse();
+        $schedule = $this->createSchedule();
+
+        $this->assertEquals(200, $schedule->getResponse()->status());
+        $this->assertNotNull($schedule->id);
+    }
+
     function testGetWorks()
     {
-        $response = $this->createSchedule();
+        $this->cleanHouse();
+        $this->createSchedule();
 
         $schedules = Schedule::get([
             'team_id' => 1,
         ]);
 
-        $this->assertEquals(200, $response->status());
+        $this->assertCount(1, $schedules);
     }
 
-    /**
-     * @vcr get_schedule_test
-     */
     function testGettingASingleScheduleWorks()
     {
-        $response = $this->createSchedule();
-        $id = $response->json()['id'];
+        $this->cleanHouse();
+        $schedule = $this->createSchedule();
 
         $retrievedSchedule = Schedule::find([
-            'id' => $id,
+            'id' => $schedule->id,
             'team_id' => 1,
         ]);
 
-        $this->assertEquals(200, $retrievedSchedule->status());
+        $this->assertEquals(200, $retrievedSchedule->getResponse()->status());
+        $this->assertEquals($schedule->id, $retrievedSchedule->id);
     }
 
-    /**
-     * @vcr delete_schedule_test
-     */
     function testDeletingAScheduleWorks()
     {
-        $response = $this->createSchedule();
-        $id = $response->json()['id'];
+        $this->cleanHouse();
+        $schedule = $this->createSchedule();
 
-        $retrievedSchedule = Schedule::delete([
-            'id' => $id,
+        $deletedSchedule = Schedule::delete([
+            'id' => $schedule->id,
             '_method' => 'delete',
             'team_id' => 1,
         ]);
 
-        $this->assertEquals(200, $retrievedSchedule->status());
+        $this->assertEquals($schedule->id, $deletedSchedule->id);
+        $this->assertTrue($deletedSchedule->deleted);
+        $this->assertEquals(200, $deletedSchedule->getResponse()->status());
     }
 }

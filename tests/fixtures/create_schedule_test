@@ -26,5 +26,5 @@
             Cache-Control: 'no-cache, private'
             X-RateLimit-Limit: '60'
             X-RateLimit-Remaining: '59'
-            Date: 'Wed, 24 May 2017 20:13:29 GMT'
-        body: '{"team_id":1,"user_id":1,"type":"monthly","method":"get","uuid":"77463862-8e7b-461c-8d26-1b825498768e","url":"http:\/\/davidhemphill.dev","starts_at":"2017-05-24 20:13:29","ends_at":null,"config":"0 0 14 * *","payload":"[]","alert":true,"timezone":"America\/Chicago","updated_at":"2017-05-24 20:13:29","created_at":"2017-05-24 20:13:29","id":43}'
+            Date: 'Wed, 24 May 2017 20:53:53 GMT'
+        body: '{"team_id":1,"user_id":1,"type":"monthly","method":"get","uuid":"fca72106-dca9-463d-be76-3e72f6d78590","url":"http:\/\/davidhemphill.dev","starts_at":"2017-05-24 20:53:53","ends_at":null,"config":"0 0 14 * *","payload":"[]","alert":true,"timezone":"America\/Chicago","updated_at":"2017-05-24 20:53:53","created_at":"2017-05-24 20:53:53","id":51}'

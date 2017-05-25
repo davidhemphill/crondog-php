@@ -77,7 +77,6 @@ class ScheduleTest extends PHPUnit_Framework_TestCase
 
         $deletedSchedule = Schedule::delete([
             'id' => $schedule->id,
-            '_method' => 'delete',
             'team_id' => 1,
         ]);
 

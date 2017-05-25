@@ -25,9 +25,12 @@ abstract class ApiResource
             $id = null;
         }
 
+        $options = $method != 'delete' ? $attributes : array_merge($attributes, ['_method' => 'delete']);
+        $merged = static::mergeWithCredentials($options);
+
         return Zttp::accept('application/json')
             ->asJson()
-            ->{$method}(static::getUrl($id), static::mergeWithCredentials($attributes));
+            ->{$method}(static::getUrl($id), $merged);
     }
 
     static function mergeWithCredentials($something = [], $with = [])

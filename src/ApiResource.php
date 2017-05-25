@@ -13,20 +13,27 @@ abstract class ApiResource
         'prod' => 'https://crondog.io/api'
     ];
 
-    static function getUrl($extra = null)
+    static function getUrl($suffix = null)
     {
-        return static::$endpoints[getenv('CRONDOG_ENV')] . static::$endpoint . $extra;
+        return static::$endpoints[getenv('CRONDOG_ENV')] . static::$endpoint . $suffix;
     }
 
-    static function createRequest($method, $id, $attributes = null)
+    static function createRequest($method, ...$args)
     {
-        if (func_num_args() == 2) {
-            $attributes = $id;
-            $id = null;
+        $attributes = [];
+        $id = null;
+
+        switch (count($args)) {
+            case 1:
+                $attributes = $args[0];
+                break;
+            case 2:
+                $id = $args[0];
+                $attributes = $args[1];
+                break;
         }
 
-        $options = $method != 'delete' ? $attributes : array_merge($attributes, ['_method' => 'delete']);
-        $merged = static::mergeWithCredentials($options);
+        $merged = array_merge($attributes, static::mergeWithCredentials());
 
         return Zttp::accept('application/json')
             ->asJson()

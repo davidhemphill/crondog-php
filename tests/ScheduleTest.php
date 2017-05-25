@@ -83,6 +83,5 @@ class ScheduleTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($schedule->id, $deletedSchedule->id);
         $this->assertTrue($deletedSchedule->deleted);
-        $this->assertEquals(200, $deletedSchedule->getResponse()->status());
     }
 }

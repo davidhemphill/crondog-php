@@ -20,7 +20,8 @@ class ScheduleTest extends PHPUnit_Framework_TestCase
             'method' => 'get',
             'type' => 'monthly',
             'monthly' => [
-            'day' => 14,
+                'day' => 14,
+                'time' => '10:00',
             ],
             'alert' => true,
             'timezone' => 'America/Chicago'

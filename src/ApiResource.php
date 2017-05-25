@@ -21,10 +21,16 @@ abstract class ApiResource
         return static::$prodBaseUri . static::$endpoint . $extra;
     }
 
-    static function createRequest()
+    static function createRequest($method, $id, $attributes = null)
     {
+        if (func_num_args() == 2) {
+            $attributes = $id;
+            $id = null;
+        }
+
         return Zttp::accept('application/json')
-            ->asJson();
+            ->asJson()
+            ->{$method}(static::getUrl($id), static::mergeWithCredentials($attributes));
     }
 
     static function mergeWithCredentials($something = [], $with = [])

@@ -1,7 +1,10 @@
 <?php
 
+namespace CronDog\Tests;
+
 use CronDog\CronDog;
 use CronDog\Schedule;
+use PHPUnit_Framework_TestCase;
 
 class ScheduleTest extends PHPUnit_Framework_TestCase
 {
@@ -71,6 +74,25 @@ class ScheduleTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($schedule->id, $retrievedSchedule->id);
     }
 
+    /**
+     * @expectedException CronDog\ScheduleNotFoundException
+     */
+    function testItShouldThrowAnExceptionIfAScheduleIsNotFound()
+    {
+        $this->cleanHouse();
+        $schedule = $this->createSchedule();
+
+        $deletedSchedule = Schedule::delete([
+            'id' => $schedule->id,
+            'team_id' => 1,
+        ]);
+
+        $retrievedSchedule = Schedule::find([
+            'id' => $schedule->id,
+            'team_id' => 1,
+        ]);
+    }
+
     function testDeletingAScheduleWorks()
     {
         $this->cleanHouse();
@@ -81,8 +103,8 @@ class ScheduleTest extends PHPUnit_Framework_TestCase
             'team_id' => 1,
         ]);
 
+        $this->assertEquals(200, $deletedSchedule->getResponse()->status());
         $this->assertEquals($schedule->id, $deletedSchedule->id);
         $this->assertTrue($deletedSchedule->deleted);
-        $this->assertEquals(200, $deletedSchedule->getResponse()->status());
     }
 }

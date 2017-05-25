@@ -3,6 +3,7 @@
 namespace CronDog;
 
 use Illuminate\Support\Collection;
+use GuzzleHttp\Exception\ClientException;
 
 class Schedule extends ApiResource
 {
@@ -20,7 +21,11 @@ class Schedule extends ApiResource
 
     static function find($attributes)
     {
-        $response = static::createRequest('get', $attributes['id'], $attributes);
+        try {
+            $response = static::createRequest('get', $attributes['id'], $attributes);
+        } catch (ClientException $e) {
+            throw new ScheduleNotFoundException('The schedule does not exist.');
+        }
 
         return static::createFromResponse($response);
     }

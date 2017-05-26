@@ -2,6 +2,8 @@
 
 namespace CronDog;
 
+use Zttp\Zttp;
+
 abstract class ApiResource
 {
     var $attributes;

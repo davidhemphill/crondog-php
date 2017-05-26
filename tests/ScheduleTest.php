@@ -13,7 +13,7 @@ class ScheduleTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         CronDog::setApiKey(getenv('CRONDOG_KEY'));
-    }
+   } 
 
     private function createSchedule()
     {

@@ -3,7 +3,10 @@
 namespace CronDog;
 
 use Illuminate\Support\Collection;
-use GuzzleHttp\Exception\ClientException;
+use CronDog\ScheduleNotFoundException;
+use CronDog\ScheduleNotCreatedException;
+use CronDog\ScheduleTeamIdNotFoundException;
+use CronDog\ScheduleValidationFailedException;
 
 class Schedule extends ApiResource
 {
@@ -21,10 +24,15 @@ class Schedule extends ApiResource
 
     static function find($attributes)
     {
-        try {
-            $response = static::createRequest('get', $attributes['id'], $attributes);
-        } catch (ClientException $e) {
-            throw new ScheduleNotFoundException('The schedule does not exist.');
+        $response = static::createRequest('get', $attributes['id'], $attributes);
+
+        if (! $response->isSuccess()) {
+            throw new ScheduleNotFoundException(
+                "Could not find a Schedule with that ID.",
+                $response->status(),
+                $response->body(),
+                $response->json()
+            );
         }
 
         return static::createFromResponse($response);
@@ -33,6 +41,26 @@ class Schedule extends ApiResource
     static function create($attributes)
     {
         $response = static::createRequest('post', $attributes);
+
+        if (! $response->isSuccess()) {
+            if ($response->status() == 401) {
+                throw new ScheduleTeamIdNotFoundException(
+                    "CronDog returned the error: {$response->message}",
+                    $response->status(),
+                    $response->body(),
+                    $response->json()
+                );
+            }
+
+            if ($response->status() == 422) {
+                throw new ScheduleValidationFailedException(
+                    "There was an error validating this request",
+                    $response->status(),
+                    $response->body(),
+                    $response->json()
+                );
+            }
+        }
 
         return static::createFromResponse($response);
     }

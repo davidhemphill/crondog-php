@@ -2,4 +2,6 @@
 
 namespace CronDog;
 
-class ScheduleNotFoundException extends \RuntimeException {}
+use CronDog\BaseException;
+
+class ScheduleNotFoundException extends BaseException {}

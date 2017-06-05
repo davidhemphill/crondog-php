@@ -3,6 +3,7 @@
 namespace CronDog;
 
 use Zttp\Zttp;
+use CronDog\ApiResponse;
 
 abstract class ApiResource
 {
@@ -37,9 +38,11 @@ abstract class ApiResource
 
         $merged = array_merge($attributes, static::mergeWithCredentials());
 
-        return Zttp::accept('application/json')
-            ->asJson()
-            ->{$method}(static::getUrl($id), $merged);
+        return new ApiResponse(
+            Zttp::accept('application/json')
+                ->asJson()
+                ->{$method}(static::getUrl($id), $merged)
+        );
     }
 
     static function mergeWithCredentials($something = [], $with = [])

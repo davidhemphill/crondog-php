@@ -64,7 +64,7 @@ abstract class ApiResource
         return $this->response;
     }
 
-    function __construct($attributes, $response = null)
+    function __construct($attributes = [], $response = null)
     {
         $this->attributes = $attributes;
         $this->response = $response;

@@ -17,7 +17,8 @@ class ScheduleTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         CronDog::setApiKey(getenv('CRONDOG_KEY'));
-   }
+        CronDog::setDevBaseUrl('http://crondog.test/api');
+    }
 
     private function createSchedule()
     {
@@ -41,6 +42,15 @@ class ScheduleTest extends PHPUnit_Framework_TestCase
             ->each(function ($schedule) {
                 return Schedule::delete($schedule->toArray());
             });
+    }
+
+    function testChangingDevBaseUrl()
+    {
+        $this->assertEquals('http://crondog.test/api', CronDog::getBaseUrl());
+
+        CronDog::setDevBaseUrl('test.dev/');
+
+        $this->assertEquals('test.dev/', CronDog::getBaseUrl());
     }
 
     function testCreateWorks()
@@ -97,7 +107,7 @@ class ScheduleTest extends PHPUnit_Framework_TestCase
         $schedule = $this->createSchedule();
 
         $retrievedSchedule = Schedule::find([
-            'id' => $schedule->id,
+            'uuid' => $schedule->uuid,
             'team_id' => 1,
         ]);
 
@@ -108,10 +118,10 @@ class ScheduleTest extends PHPUnit_Framework_TestCase
     {
         $this->cleanHouse();
         $schedule = $this->createSchedule();
-        $deletedSchedule = Schedule::delete(['id' => $schedule->id, 'team_id' => 1]);
+        $deletedSchedule = Schedule::delete(['uuid' => $schedule->uuid, 'team_id' => 1]);
 
         try {
-            Schedule::find(['id' => $schedule->id, 'team_id' => 1]);
+            Schedule::find(['uuid' => $schedule->uuid, 'team_id' => 1]);
 
         } catch (ScheduleNotFoundException $e) {
             $this->assertEquals(404, $e->status());
@@ -123,11 +133,11 @@ class ScheduleTest extends PHPUnit_Framework_TestCase
 
     function testDeletingAScheduleWorks()
     {
-        $this->cleanHouse();
+        // $this->cleanHouse();
         $schedule = $this->createSchedule();
 
         $deletedSchedule = Schedule::delete([
-            'id' => $schedule->id,
+            'uuid' => $schedule->uuid,
             'team_id' => 1,
         ]);
 

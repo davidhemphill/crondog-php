@@ -11,14 +11,9 @@ abstract class ApiResource
 
     var $response;
 
-    static $endpoints = [
-        'dev' => 'http://crondog.dev/api',
-        'prod' => 'https://crondog.io/api'
-    ];
-
     static function getUrl($suffix = null)
     {
-        return static::$endpoints[getenv('CRONDOG_ENV')] . static::$endpoint . $suffix;
+        return CronDog::getBaseUrl() . static::$endpoint . $suffix;
     }
 
     static function createRequest($method, ...$args)

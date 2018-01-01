@@ -24,7 +24,7 @@ class Schedule extends ApiResource
 
     static function find($attributes)
     {
-        $response = static::createRequest('get', $attributes['id'], $attributes);
+        $response = static::createRequest('get', $attributes['uuid'], $attributes);
 
         if (! $response->isSuccess()) {
             throw new ScheduleNotFoundException(
@@ -67,7 +67,7 @@ class Schedule extends ApiResource
 
     static function delete($attributes)
     {
-        $response = static::createRequest('delete', $attributes['id'], $attributes);
+        $response = static::createRequest('delete', $attributes['uuid'], $attributes);
 
         return static::createFromResponse($response);
     }
